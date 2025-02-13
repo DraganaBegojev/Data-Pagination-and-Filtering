@@ -1,3 +1,5 @@
+const studentList = document.querySelector('.student-list');
+const linkList = document.querySelector('.link-list');
 
 /*
 Display student cards on the page.  
@@ -7,7 +9,6 @@ Show students from an array based on the requested page.
 function showPage(list, page) {
    const startIndex = (page * 9) - 9;
    const endIndex = page * 9;
-   const studentList = document.querySelector('.student-list');
    studentList.innerHTML = '';
    for (let i = 0; i < list.length; i++) {
       if (i >= startIndex && i < endIndex) {
@@ -36,7 +37,6 @@ Clicking a button calls the showPage function to update the student cards for th
 
 function addPagination(list) {
    const numOfPages = Math.ceil(list.length / 9);
-   const linkList = document.querySelector('.link-list');
    linkList.innerHTML = '';
    for (let i = 1; i <= numOfPages; i++) {
       const button = `
@@ -47,7 +47,8 @@ function addPagination(list) {
       linkList.insertAdjacentHTML('beforeend', button);
    }
    const firstButton = document.querySelector('.link-list button');
-   firstButton.className = 'active';
+   if (firstButton) firstButton.className = 'active';
+
    linkList.addEventListener("click", (e) => {
       const activeButton = linkList.querySelector('.active');
       const clickedButton = e.target.closest('button');
@@ -59,7 +60,7 @@ function addPagination(list) {
    });
 }
 
-// create search bar
+// Create search bar
 
 function addSearchBar() {
    const header = document.querySelector('.header');
@@ -73,8 +74,43 @@ function addSearchBar() {
 }
 
 
-
 // Call functions
 
-showPage(data, 1);
+addSearchBar();
 addPagination(data);
+showPage(data, 1);
+
+
+// Select search elements
+const search = document.getElementById('search');
+const searchButton = document.querySelector('.student-search button');
+
+// Search functionality
+
+function searchStudents() {
+   const searchResults = [];
+   const userInput = search.value.toLowerCase();
+   for(let i=0; i < data.length; i++) {
+      const fullName = data[i].name.first + ' ' + data[i].name.last;
+      if(fullName.toLowerCase().includes(userInput)) {
+         searchResults.push(data[i]);
+      }
+   }
+   if(searchResults.length > 0) {
+      addPagination(searchResults);
+      showPage(searchResults, 1);
+   } else {
+      studentList.innerHTML = '<h1>No results found</h1>';
+      linkList.innerHTML = '';
+   }
+}
+
+// Add event listeners for search
+
+search.addEventListener('keyup', searchStudents);
+searchButton.addEventListener('click', searchStudents);
+
+
+
+
+
