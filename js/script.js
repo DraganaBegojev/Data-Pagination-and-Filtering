@@ -1,7 +1,7 @@
 
 /*
-Create the `showPage` function
-This function will create and insert/append the elements needed to display a "page" of nine students
+Display student cards on the page.  
+Show students from an array based on the requested page.
 */
 
 function showPage(list, page) {
@@ -30,8 +30,8 @@ function showPage(list, page) {
 
 
 /*
-Create the `addPagination` function
-This function will create and insert/append the elements needed for the pagination buttons
+Rendering pagination buttons. 
+Clicking a button calls the showPage function to update the student cards for the selected page.
 */
 
 function addPagination(list) {
