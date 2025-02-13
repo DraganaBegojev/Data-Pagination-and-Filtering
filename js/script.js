@@ -82,6 +82,7 @@ showPage(data, 1);
 
 
 // Select search elements
+
 const search = document.getElementById('search');
 const searchButton = document.querySelector('.student-search button');
 
@@ -105,7 +106,7 @@ function searchStudents() {
    }
 }
 
-// Add event listeners for search
+// Event listeners for search
 
 search.addEventListener('keyup', searchStudents);
 searchButton.addEventListener('click', searchStudents);
